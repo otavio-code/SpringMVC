@@ -1,0 +1,11 @@
+package br.sp.senai.springweb.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class AlunoController {
+	
+	public String home() {
+		return "home";
+	}
+}
