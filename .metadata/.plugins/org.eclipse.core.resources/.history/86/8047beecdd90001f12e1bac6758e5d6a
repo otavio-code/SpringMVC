@@ -1,0 +1,9 @@
+package br.sp.senai.springweb.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.sp.senai.springweb.model.Aluno;
+
+public interface AlunoRepository extends JpaRepository<Aluno, Long>{
+
+}
