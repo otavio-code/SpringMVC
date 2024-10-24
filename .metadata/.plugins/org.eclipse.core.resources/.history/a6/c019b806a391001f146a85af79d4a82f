@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro Aluno</title>
+</head>
+<body>
+	<form th:object="${aluno}" action="/aluno/gravar" method="post">
+		<input th:field="*{id}" type="hidden" name="id"/>
+		<label>Nome:</label>
+		<input th:field="*{nome}" type="text" name="nome"/>
+		<label>CPF:</label>
+		<input th:field="*{cpf}" type="text" name="cpf"/>
+		<label>Telefone:</label>
+		<input type="text" name="telefone"/>		
+				
+		<button type="submit">Ok</button>
+	</form>
+</body>
+</html>

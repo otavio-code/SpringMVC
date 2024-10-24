@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lista de Alunos</title>
+</head>
+<body>
+	<a href="/aluno/cadastro">
+		<button type="button">Novo</button>
+	</a>	
+	<table>
+		<tr>
+			<th>Código</th>
+			<th>Nome</th>
+			<th>CPF</th>
+		</tr>
+		
+		<tr th:each="aluno : ${alunos}">
+			<td th:text="${aluno.id}">Código</td>
+			<td th:text="${aluno.nome}">Nome</td>
+			<td th:text="${aluno.cpf}">CPF</td>		
+		</tr>
+	
+	</table>
+
+
+
+
+</body>
+</html>

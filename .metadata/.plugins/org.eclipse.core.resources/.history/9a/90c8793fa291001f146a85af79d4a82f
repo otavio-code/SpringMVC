@@ -1,0 +1,66 @@
+package br.sp.senai.springweb.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.sp.senai.springweb.model.Aluno;
+import br.sp.senai.springweb.repository.AlunoRepository;
+
+@Controller
+@RequestMapping("/aluno")
+public class AlunoController {
+	@Autowired
+	AlunoRepository alunoRep;
+	
+	@GetMapping("/cadastro")
+	public String novo() {
+		return "/aluno/alunofrm";
+	}
+	
+	@PostMapping("/gravar")
+	public String gravar(Aluno aluno) {
+
+		alunoRep.save(aluno);
+		
+		return "redirect:/aluno/listar"; //Chama a Controller Listar
+	}
+	
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		List<Aluno> lista = alunoRep.findAll();
+		
+		model.addAttribute("alunos", lista);
+		
+		return "/aluno/alunolst";
+	}
+	
+	
+	@GetMapping("/altera/{id}")
+	public String alterar(@PathVariable Long id, Aluno aluno) {
+		
+		Optional<Aluno> tmp = alunoRep.findById(id);
+		
+		if (tmp.isPresent()) {
+			aluno a = tmp.get();
+			
+			aluno.setId(id);
+			aluno.setNome(a.getNome());
+			aluno.setCpf(a.getCpf());
+		}
+		
+		return "/aluno/alunofrm";
+	}
+	
+	
+	
+	
+	
+	
+}
