@@ -1,0 +1,5 @@
+package br.sp.senai.springweb.repository;
+
+public interface ProfessorRepository {
+
+}

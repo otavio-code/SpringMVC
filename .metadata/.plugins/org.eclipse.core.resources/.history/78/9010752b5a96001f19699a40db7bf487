@@ -1,0 +1,70 @@
+package br.sp.senai.springweb.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.sp.senai.springweb.model.Aluno;
+import br.sp.senai.springweb.model.Professor;
+import br.sp.senai.springweb.repository.ProfessorRepository;
+
+@Controller
+@RequestMapping("/professor")
+public class ProfessorController {
+	
+	@Autowired
+	ProfessorRepository professorRep;
+
+	
+	@GetMapping("/cadastro")
+	public String novo(Professor professor) {
+		return "/professor/professorfrm";
+	}
+	
+	@PostMapping("/gravar")
+	public String gravar(Professor professor) {
+		professorRep.save(professor);
+		
+		return "redirect:/professor/listar"; //Chama a Controller listar
+	}
+	
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		List<Professor> lista = professorRep.findAll();
+		
+		model.addAttribute("professores", lista);
+		return "/professor/professorlst";
+	}
+	
+	@GetMapping("/altera/{id}")
+	public String alterar(@PathVariable Long id, Professor professor) {
+		
+		Optional<Professor> tmp = professorRep.findById(id);
+		
+		if (tmp.isPresent()) {
+			Professor a = tmp.get();
+			
+			professor.setId(id);
+			professor.setNome(a.getNome());
+			professor.setCpf(a.getCpf());
+		}
+		
+		return "/professor/professorfrm";
+	}
+
+	@GetMapping("/exclui/{id}")
+	public String excluir(@PathVariable Long id, Professor professor) {
+		
+		professorRep.deleteById(id);
+		
+		return "redirect:/professor/listar";
+		
+	}
+}

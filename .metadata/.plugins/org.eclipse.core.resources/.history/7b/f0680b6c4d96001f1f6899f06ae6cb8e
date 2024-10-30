@@ -1,0 +1,24 @@
+package br.sp.senai.springweb.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.sp.senai.springweb.model.Professor;
+import br.sp.senai.springweb.repository.ProfessorRepository;
+
+@Controller
+@RequestMapping("/professor")
+public class ProfessorController {
+	
+	@Autowired
+	ProfessorRepository professorRep;
+
+	
+	@GetMapping("/cadastro")
+	public String novo(Professor professor) {
+		return "/professor/professorfrm";
+	}
+
+}
